@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Cálculos matemáticos</title>
+</head>
+
+<body>
+    <div>
+        <h1>Digite 4 números para calcular</h1>
+    </div>
+    <div class="forms">
+        <form id="formCalcular">
+            <label>Digite o primeiro número:</label>
+            <input type="number" step="any" class="valor1" name="valor1" placeholder="Digite o primeiro número:">
+            <label>Digite o segundo número:</label>
+            <input type="number" step="any" class="valor2" name="valor2" placeholder="Digite o segundo número:">
+            <label>Digite o terceiro número:</label>
+            <input type="number" step="any" class="valor3" name="valor3" placeholder="Digite o terceiro número:">
+            <label>Digite o quarto número:</label>
+            <input type="number" step="any" class="valor4" name="valor4" placeholder="Digite o quarto número:">
+            <button type="submit">Calcular</button>
+        </form>
+    </div>
+
+    <div id="resultado" class="resultado"></div>
+
+</body>
+
+</html>
+
+<script>
+
+    function calcularResultados(numero) {
+        return {
+            numero: numero,
+            dobro: numero * 2,
+            triplo: numero * 3,
+            quadruplo: numero * 4,
+            quintuplo: numero * 5,
+            sextuplo: numero * 6,
+            quadrado: numero ** 2,
+            cubo: numero ** 3,
+            quarta: numero ** 4,
+            quinta: numero ** 5,
+            sexta: numero ** 6,
+            raiz: Math.sqrt(numero),
+            parOuImpar: ParImpar(numero)
+        }
+    }
+
+
+    function exibirResultados(resultados, bhaskara, parImpar, media) {
+        let mensagem = 'Resultados dos Números Digitados: \n\n'
+
+        resultados.forEach((resultado, index) => {
+            mensagem += `\nNumero digitado: ${resultado.numero}\n`
+            mensagem += `Dobro: ${resultado.dobro}\n`
+            mensagem += `Triplo: ${resultado.triplo}\n`
+            mensagem += `Quádruplo: ${resultado.quadruplo}\n`
+            mensagem += `Quíntuplo: ${resultado.quintuplo}\n`
+            mensagem += `Sêxtuplo: ${resultado.sextuplo}\n`
+            mensagem += `Quadrado: ${resultado.quadrado}\n`
+            mensagem += `Cubo: ${resultado.cubo}\n`
+            mensagem += `Quarta Potência: ${resultado.quarta}\n`
+            mensagem += `Quinta Potência: ${resultado.quinta}\n`
+            mensagem += `Sexta Potência: ${resultado.sexta}\n`
+            mensagem += `Raiz Quadrada: ${resultado.raiz}\n`
+            mensagem += `Par ou Ímpar: ${resultado.parOuImpar}\n`
+        })
+
+        mensagem += `\nBhaskara: ${bhaskara}\n`
+
+        mensagem += `\nMédia: ${media}`
+
+
+
+        document.getElementById('resultado').textContent = mensagem;
+
+    }
+
+    function CalcularValores(n1, n2, n3, n4) {
+        const numeros = [
+            n1 = parseFloat(n1),
+            n2 = parseFloat(n2),
+            n3 = parseFloat(n3),
+            n4 = parseFloat(n4)
+        ]
+
+        const resultados = numeros.map(numero => calcularResultados(numero))
+
+        const bhaskara = CalcularBhaskara(n1, n2, n3)
+
+        const media = CalcularMedia(n1, n2, n3, n4)
+
+        const parImpar = numeros.map(numero => ParImpar(numeros))
+
+        exibirResultados(resultados, bhaskara, parImpar, media);
+    }
+
+    function ParImpar(n1, n2, n3, n4) {
+        let numeros = [n1, n2, n3, n4];
+        let resultado = ''
+
+        for (let i = 0; i < numeros.length; i++) {
+            const numero = numeros[i];
+
+            if (numero % 2 === 0) {
+                return `Par`
+            } else {
+                return `Ímpar`
+            }
+        }
+        return resultado
+    }
+
+    function CalcularMedia(n1, n2, n3, n4) {
+        n1 = parseFloat(n1);
+        n2 = parseFloat(n2);
+        n3 = parseFloat(n3);
+        n4 = parseFloat(n4);
+
+        const media = (n1 + n2 + n3 + n4) / 4;
+
+        return media;
+    }
+
+ 
+    function CalcularBhaskara(n1, n2, n3) {
+        n1 = parseFloat(n1);
+        n2 = parseFloat(n2);
+        n3 = parseFloat(n3);
+
+        if (n1 === 0) {
+            return "Não é uma equação do segundo grau"
+
+        }
+
+        const delta = n2 * n2 - 4 * n1 * n3
+
+
+        if (delta < 0) {
+
+            return "A equação não possui raízes reais"
+
+        }
+
+        const raizDelta = Math.sqrt(delta)
+        x1 = (-n2 + raizDelta) / (2 * n1)
+        x2 = (-n2 - raizDelta) / (2 * n1)
+
+        return `Usando os 3 primeiros números:\nΔ = ${delta}\nx₁ = ${x1}\nx₂ = ${x2}`
+
+    }
+
+    // envio do formulário
+    document.getElementById('formCalcular').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const n1 = document.querySelector('.valor1').value;
+        const n2 = document.querySelector('.valor2').value;
+        const n3 = document.querySelector('.valor3').value;
+        const n4 = document.querySelector('.valor4').value;
+
+        if (!isNaN(n1) && !isNaN(n2) && !isNaN(n3) && !isNaN(n4)) {
+
+            CalcularValores(n1, n2, n3, n4);
+
+
+            // Limpar campos do formulário
+            document.querySelector('.valor1').value = '';
+            document.querySelector('.valor2').value = '';
+            document.querySelector('.valor3').value = '';
+            document.querySelector('.valor4').value = '';
+        } else {
+            alert("Digite 4 números validos")
+        }
+    });
+
+
+
+
+</script>
