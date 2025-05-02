@@ -52,8 +52,7 @@
         }
     }
 
-
-    function exibirResultados(resultados, bhaskara, parImpar, media) {
+    function exibirResultados(resultados, bhaskara, media) {
         let mensagem = 'Resultados dos Números Digitados: \n\n'
 
         resultados.forEach((resultado, index) => {
@@ -76,10 +75,7 @@
 
         mensagem += `\nMédia: ${media}`
 
-
-
         document.getElementById('resultado').textContent = mensagem;
-
     }
 
     function CalcularValores(n1, n2, n3, n4) {
@@ -96,25 +92,12 @@
 
         const media = CalcularMedia(n1, n2, n3, n4)
 
-        const parImpar = numeros.map(numero => ParImpar(numeros))
 
-        exibirResultados(resultados, bhaskara, parImpar, media);
+        exibirResultados(resultados, bhaskara, media);
     }
 
-    function ParImpar(n1, n2, n3, n4) {
-        let numeros = [n1, n2, n3, n4];
-        let resultado = ''
-
-        for (let i = 0; i < numeros.length; i++) {
-            const numero = numeros[i];
-
-            if (numero % 2 === 0) {
-                return `Par`
-            } else {
-                return `Ímpar`
-            }
-        }
-        return resultado
+    function ParImpar(numero) {
+        return numero % 2 === 0 ? 'Par' : 'Ímpar';
     }
 
     function CalcularMedia(n1, n2, n3, n4) {
@@ -128,7 +111,7 @@
         return media;
     }
 
- 
+
     function CalcularBhaskara(n1, n2, n3) {
         n1 = parseFloat(n1);
         n2 = parseFloat(n2);
@@ -149,8 +132,8 @@
         }
 
         const raizDelta = Math.sqrt(delta)
-        x1 = (-n2 + raizDelta) / (2 * n1)
-        x2 = (-n2 - raizDelta) / (2 * n1)
+        let x1 = (-n2 + raizDelta) / (2 * n1)
+        let x2 = (-n2 - raizDelta) / (2 * n1)
 
         return `Usando os 3 primeiros números:\nΔ = ${delta}\nx₁ = ${x1}\nx₂ = ${x2}`
 
@@ -179,8 +162,5 @@
             alert("Digite 4 números validos")
         }
     });
-
-
-
 
 </script>
